@@ -13,6 +13,7 @@ import createNewParagraphBlock from './create-new-paragraph-block';
 import handleDeleteInParagraph from './handle-delete-in-paragraph';
 import setSelection from './set-selection';
 import getNodebyPath from './get-node-by-path';
+import addChapterToParagraph from './add-chapter-to-paragraph';
 const SlateHelpers = {
   getClosestBlock,
   getSelectionNodes,
@@ -29,6 +30,7 @@ const SlateHelpers = {
   handleDeleteInParagraph,
   setSelection,
   getNodebyPath,
+  addChapterToParagraph,
 };
 
 export default SlateHelpers;

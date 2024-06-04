@@ -144,7 +144,7 @@ function SlateTranscriptEditor(props) {
     };
   }, []);
 
-  useEffect(() => {}, [currentTime]);
+  useEffect(() => { }, [currentTime]);
 
   // useEffect(() => {
   //   // Update the document title using the browser API
@@ -347,49 +347,71 @@ function SlateTranscriptEditor(props) {
       textXl = 7;
     }
 
+    const handleChapterChange = (event) => {
+      const pathToCurrentNode = ReactEditor.findPath(editor, props.element);
+      const newChapter = event.target.value;
+      Transforms.setNodes(
+        editor,
+        { chapter: newChapter },
+        { at: pathToCurrentNode }
+      );
+    };
+
     return (
-      <Grid container direction="row" justifycontent="flex-start" alignItems="flex-start" {...props.attributes}>
-        {showTimecodes && (
-          <Grid item contentEditable={false} xs={4} sm={3} md={3} lg={2} xl={2} className={'p-t-2 text-truncate'}>
-            <code
-              contentEditable={false}
-              style={{ cursor: 'pointer' }}
-              className={'timecode text-muted unselectable'}
-              onClick={handleTimedTextClick}
-              // onClick={(e) => {
-              //   e.preventDefault();
-              // }}
-              onDoubleClick={handleTimedTextClick}
-              title={props.element.startTimecode}
-              data-start={props.element.start}
-            >
-              {props.element.startTimecode}
-            </code>
-          </Grid>
+      <>
+        {props.element.chapter && (
+          <Typography contentEditable={false} variant="h4" style={{ width: '100%' }}>
+            <input
+              type="text"
+              value={props.element.chapter}
+              onChange={handleChapterChange}
+              style={{ width: '100%', border: 'none', background: 'transparent', fontSize: 'inherit', outline: 'none' }}
+            />
+          </Typography>
         )}
-        {showSpeakers && (
-          <Grid item contentEditable={false} xs={8} sm={9} md={9} lg={3} xl={3} className={'p-t-2 text-truncate'}>
-            <Typography
-              noWrap
-              contentEditable={false}
-              className={'text-truncate text-muted unselectable'}
-              style={{
-                cursor: 'pointer',
-                width: '100%',
-                textTransform: 'uppercase',
-              }}
-              // title={props.element.speaker.toUpperCase()}
-              title={props.element.speaker}
-              onClick={handleSetSpeakerName.bind(this, props.element)}
-            >
-              {props.element.speaker}
-            </Typography>
+        <Grid container direction="row" justifycontent="flex-start" alignItems="flex-start" {...props.attributes}>
+          {showTimecodes && (
+            <Grid item contentEditable={false} xs={4} sm={3} md={3} lg={2} xl={2} className={'p-t-2 text-truncate'}>
+              <code
+                contentEditable={false}
+                style={{ cursor: 'pointer' }}
+                className={'timecode text-muted unselectable'}
+                onClick={handleTimedTextClick}
+                // onClick={(e) => {
+                //   e.preventDefault();
+                // }}
+                onDoubleClick={handleTimedTextClick}
+                title={props.element.startTimecode}
+                data-start={props.element.start}
+              >
+                {props.element.startTimecode}
+              </code>
+            </Grid>
+          )}
+          {showSpeakers && (
+            <Grid item contentEditable={false} xs={8} sm={9} md={9} lg={3} xl={3} className={'p-t-2 text-truncate'}>
+              <Typography
+                noWrap
+                contentEditable={false}
+                className={'text-truncate text-muted unselectable'}
+                style={{
+                  cursor: 'pointer',
+                  width: '100%',
+                  textTransform: 'uppercase',
+                }}
+                // title={props.element.speaker.toUpperCase()}
+                title={props.element.speaker}
+                onClick={handleSetSpeakerName.bind(this, props.element)}
+              >
+                {props.element.speaker}
+              </Typography>
+            </Grid>
+          )}
+          <Grid item xs={12} sm={12} md={12} lg={textLg} xl={textXl} className={'p-b-1 mx-auto'}>
+            {props.children}
           </Grid>
-        )}
-        <Grid item xs={12} sm={12} md={12} lg={textLg} xl={textXl} className={'p-b-1 mx-auto'}>
-          {props.children}
         </Grid>
-      </Grid>
+      </>
     );
   };
 
@@ -595,6 +617,14 @@ function SlateTranscriptEditor(props) {
   const handleSplitParagraph = () => {
     SlateHelpers.handleSplitParagraph(editor);
   };
+
+  const handleNewChapter = () => {
+    if (editor.selection) {
+      SlateHelpers.addChapterToParagraph(editor);
+      setIsContentIsModified(true);
+      setIsContentSaved(false);
+    }
+  }
 
   const handleUndo = () => {
     editor.undo();
@@ -912,6 +942,7 @@ function SlateTranscriptEditor(props) {
               insertTextInaudible={insertTextInaudible}
               handleInsertMusicNote={handleInsertMusicNote}
               handleSplitParagraph={handleSplitParagraph}
+              handleNewChapter={handleNewChapter}
               isPauseWhiletyping={isPauseWhiletyping}
               handleSetPauseWhileTyping={handleSetPauseWhileTyping}
               handleRestoreTimecodes={handleRestoreTimecodes}

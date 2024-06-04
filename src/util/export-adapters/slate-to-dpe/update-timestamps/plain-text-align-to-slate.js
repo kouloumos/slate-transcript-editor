@@ -46,6 +46,9 @@ const createSlateContentFromSlateJsParagraphs = (currentContent, newEntities) =>
         },
       ],
     };
+    if (block.chapter) {
+      updatedBlock["chapter"] = block.chapter
+    }
 
     updatedBlockArray.push(updatedBlock);
     totalWords += wordsInBlock;
