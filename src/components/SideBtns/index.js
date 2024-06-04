@@ -13,6 +13,7 @@ import KeyboardReturnOutlinedIcon from '@material-ui/icons/KeyboardReturnOutline
 import MusicNoteOutlinedIcon from '@material-ui/icons/MusicNoteOutlined';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
+import TitleIcon from '@material-ui/icons/Title';
 import CachedOutlinedIcon from '@material-ui/icons/CachedOutlined';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -30,6 +31,7 @@ function SideBtns({
   insertTextInaudible,
   handleInsertMusicNote,
   handleSplitParagraph,
+  handleNewChapter,
   handleRestoreTimecodes,
   handleReplaceText,
   handleSave,
@@ -280,13 +282,24 @@ function SideBtns({
       {isEditable && (
         <>
           {/* TODO: Disabiling until find a way to handle timecodes and alignment on paragraph break */}
-          {/* <Tooltip
-        title={`To insert a paragraph break, and split a pargraph in two, put the cursor at a point where you'd want to add a paragraph break in the text and either click this button or hit enter key`}
-      >
-        <Button disabled={isProcessing} onClick={handleSplitParagraph} color="primary">
-          <KeyboardReturnOutlinedIcon color="primary" />
-        </Button>
-      </Tooltip> */}
+          {/* <Grid item>
+            <Tooltip
+              title={`To insert a paragraph break, and split a pargraph in two, put the cursor at a point where you'd want to add a paragraph break in the text and either click this button or hit enter key`}
+            >
+              <Button disabled={isProcessing} onClick={handleSplitParagraph} color="primary">
+                <KeyboardReturnOutlinedIcon color="primary" />
+              </Button>
+            </Tooltip>
+          </Grid> */}
+          <Grid item>
+            <Tooltip
+              title={`To insert a chapter, put the cursor at the first paragraph of the new chapter and click this button `}
+            >
+              <Button disabled={isProcessing} onClick={handleNewChapter} color="primary">
+                <TitleIcon color="primary" />
+              </Button>
+            </Tooltip>
+          </Grid>
           {/*  */}
           <Grid item>
             <br />

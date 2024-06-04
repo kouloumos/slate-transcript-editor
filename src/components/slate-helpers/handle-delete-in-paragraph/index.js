@@ -35,8 +35,10 @@ function handleDeleteInParagraph({ editor, event }) {
       const previousBlockEndOffset = previousBlock.children[0].text.length;
       const previousBlockText = previousBlock.children[0].text;
       const previousBlockWordsList = previousBlock.children[0].words;
+      const previousBlockChapter = previousBlock.chapter
       let currentBlockText = currentBlockNode.children[0].text;
       let currentBlockWordsList = currentBlockNode.children[0].words;
+      const currentBlockChapter = currentBlockNode.chapter;
       // if the word have changed. then re-align paragraph before splitting.
       // TODO: this needs re-thinking if there's other re-alignment happening
       // eg on key down debounce
@@ -52,6 +54,8 @@ function handleDeleteInParagraph({ editor, event }) {
 
       const newText = previousBlockText + ' ' + currentBlockText;
       const newWords = [...previousBlockWordsList, ...currentBlockWordsList];
+      // when merging two blocks, priority is given to the chapter of the first block
+      const newChapter = previousBlockChapter ? previousBlockChapter : currentBlockChapter
 
       const range = {
         anchor: {
@@ -77,6 +81,7 @@ function handleDeleteInParagraph({ editor, event }) {
         startTimecode,
         text: newText,
         words: newWords,
+        chapter: newChapter
       });
 
       SlateHelpers.removeNodes({ editor, options });

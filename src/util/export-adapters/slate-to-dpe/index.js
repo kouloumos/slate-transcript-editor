@@ -27,6 +27,9 @@ export const createDpeParagraphsFromSlateJs = (currentContent, newEntities) => {
       start,
       end,
     };
+    if (block.chapter) {
+      updatedBlock["chapter"] = block.chapter
+    }
 
     totalWords += wordsInBlock;
     return updatedBlock;

@@ -71,6 +71,8 @@ const convertDpeToSlate = (transcript) => {
         words: getWordsForParagraph(paragraph, words),
       },
     ],
+    // Conditionally add the chapter field if it exists in the paragraph
+    ...(paragraph.chapter && { chapter: paragraph.chapter }),
   }));
 };
 

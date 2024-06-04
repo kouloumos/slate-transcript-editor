@@ -1,7 +1,7 @@
 import { shortTimecode } from '../../../util/timecode-converter'; //'../../../timecode-converter';
 import generatePreviousTimingsUpToCurrent from '../../../util/dpe-to-slate/generate-previous-timings-up-to-current';
 
-function createNewParagraphBlock({ speaker, start, text = '', words = [], previousTimings, startTimecode }) {
+function createNewParagraphBlock({ speaker, start, text = '', words = [], previousTimings, startTimecode, chapter }) {
   let newPreviousTimings = previousTimings;
   if (!newPreviousTimings) {
     newPreviousTimings = generatePreviousTimingsUpToCurrent(start);
@@ -22,6 +22,7 @@ function createNewParagraphBlock({ speaker, start, text = '', words = [], previo
         words,
       },
     ],
+    ...(chapter && { chapter: chapter }),
   };
 }
 
