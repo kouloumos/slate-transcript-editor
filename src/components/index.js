@@ -952,6 +952,10 @@ function SlateTranscriptEditor(props) {
               handleUndo={handleUndo}
               handleRedo={handleRedo}
               isEditable={props.isEditable}
+              buttonConfig={{
+                ...SlateTranscriptEditor.defaultProps.buttonConfig,
+                ...props.buttonConfig
+              }}
             />
           </Grid>
         </Grid>
@@ -974,6 +978,7 @@ SlateTranscriptEditor.propTypes = {
   title: PropTypes.string,
   showTitle: PropTypes.bool,
   transcriptDataLive: PropTypes.object,
+  buttonConfig: PropTypes.object,
 };
 
 SlateTranscriptEditor.defaultProps = {
@@ -982,4 +987,13 @@ SlateTranscriptEditor.defaultProps = {
   showSpeakers: true,
   autoSaveContentType: 'digitalpaperedit',
   isEditable: true,
+  buttonConfig: {
+    export: true,
+    save: true,
+    newChapter: true,
+    textInaudible: true,
+    musicNote: true,
+    undoRedo: true,
+    replaceText: true
+  },
 };
