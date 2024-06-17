@@ -215,6 +215,21 @@ function SideBtns({
             <Link color="primary"> Word (OHMS)</Link>
           </MenuItem>
           <Divider />
+          <MenuItem
+            onClick={() => {
+              handleExport({
+                type: 'markdown',
+                ext: 'md',
+                isDownload: true,
+              });
+              handleMenuClose();
+            }}
+          >
+            <Link color="primary">
+              Markdown (<code>.md</code>)
+            </Link>
+          </MenuItem>
+          <Divider />
           <MenuItem onClick={handleMenuClose} disabled>
             <Link style={{ color: 'black' }}>Closed Captions Export</Link>
           </MenuItem>

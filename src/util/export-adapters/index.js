@@ -9,6 +9,7 @@
 import slateToText from './txt';
 import converSlateToDpe from './slate-to-dpe';
 import slateToDocx from '../export-adapters/docx';
+import slateToMarkdown from './md'
 import subtitlesExportOptionsList from './subtitles-generator/list';
 import subtitlesGenerator from './subtitles-generator/index';
 
@@ -38,6 +39,8 @@ const exportAdapter = ({ slateValue, type, ext, transcriptTitle, speakers, timec
         inlineTimecodes,
         hideTitle,
       });
+    case "markdown":
+      return slateToMarkdown(slateValue)
     default:
       if (isCaptionType(type)) {
         const editorContent = converSlateToDpe(slateValue);
