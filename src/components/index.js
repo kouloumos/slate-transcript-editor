@@ -81,6 +81,13 @@ function SlateTranscriptEditor(props) {
   const [selectedSpeakerElement, setSelectedSpeakerElement] = useState(null);
 
   useEffect(() => {
+    if (props.isDirty) {
+      setIsContentIsModified(true)
+      setIsContentSaved(false)
+    }
+  }, [props.isDirty]);
+
+  useEffect(() => {
     if (isProcessing) {
       document.body.style.cursor = 'wait';
     } else {
@@ -1003,7 +1010,8 @@ SlateTranscriptEditor.propTypes = {
   showTitle: PropTypes.bool,
   transcriptDataLive: PropTypes.object,
   buttonConfig: PropTypes.object,
-  SelectSpeakerModalComponent: PropTypes.elementType
+  SelectSpeakerModalComponent: PropTypes.elementType,
+  isDirty: PropTypes.bool
 };
 
 SlateTranscriptEditor.defaultProps = {
