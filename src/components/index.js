@@ -726,7 +726,7 @@ function SlateTranscriptEditor(props) {
   return (
     <div style={{ paddingTop: '1em' }}>
       <CssBaseline />
-      <Container>
+      <Container disableGutters>
         <Paper elevation={3} />
         <style scoped>
           {`/* Next words */
@@ -953,35 +953,32 @@ function SlateTranscriptEditor(props) {
               </section>
             )}
           </Grid>
-
-          <Grid container item xs={12} sm={1} md={1} lg={1} xl={1}>
-            <SideBtns
-              handleExport={handleExport}
-              isProcessing={isProcessing}
-              isContentModified={isContentModified}
-              isContentSaved={isContentSaved}
-              setIsProcessing={setIsProcessing}
-              insertTextInaudible={insertTextInaudible}
-              handleInsertMusicNote={handleInsertMusicNote}
-              handleSplitParagraph={handleSplitParagraph}
-              handleNewChapter={handleNewChapter}
-              isPauseWhiletyping={isPauseWhiletyping}
-              handleSetPauseWhileTyping={handleSetPauseWhileTyping}
-              handleRestoreTimecodes={handleRestoreTimecodes}
-              handleReplaceText={handleReplaceText}
-              handleSave={handleSave}
-              REPLACE_WHOLE_TEXT_INSTRUCTION={REPLACE_WHOLE_TEXT_INSTRUCTION}
-              handleAnalyticsEvents={props.handleAnalyticsEvents}
-              optionalBtns={props.optionalBtns}
-              handleUndo={handleUndo}
-              handleRedo={handleRedo}
-              isEditable={props.isEditable}
-              buttonConfig={{
-                ...SlateTranscriptEditor.defaultProps.buttonConfig,
-                ...props.buttonConfig
-              }}
-            />
-          </Grid>
+          <SideBtns
+            handleExport={handleExport}
+            isProcessing={isProcessing}
+            isContentModified={isContentModified}
+            isContentSaved={isContentSaved}
+            setIsProcessing={setIsProcessing}
+            insertTextInaudible={insertTextInaudible}
+            handleInsertMusicNote={handleInsertMusicNote}
+            handleSplitParagraph={handleSplitParagraph}
+            handleNewChapter={handleNewChapter}
+            isPauseWhiletyping={isPauseWhiletyping}
+            handleSetPauseWhileTyping={handleSetPauseWhileTyping}
+            handleRestoreTimecodes={handleRestoreTimecodes}
+            handleReplaceText={handleReplaceText}
+            handleSave={handleSave}
+            REPLACE_WHOLE_TEXT_INSTRUCTION={REPLACE_WHOLE_TEXT_INSTRUCTION}
+            handleAnalyticsEvents={props.handleAnalyticsEvents}
+            optionalBtns={props.optionalBtns}
+            handleUndo={handleUndo}
+            handleRedo={handleRedo}
+            isEditable={props.isEditable}
+            buttonConfig={{
+              ...SlateTranscriptEditor.defaultProps.buttonConfig,
+              ...props.buttonConfig
+            }}
+          />
         </Grid>
       </Container>
       {props.SelectSpeakerModalComponent && (
