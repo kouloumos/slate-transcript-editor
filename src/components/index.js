@@ -399,9 +399,7 @@ function SlateTranscriptEditor(props) {
                 style={{
                   cursor: 'pointer',
                   width: '100%',
-                  textTransform: 'uppercase',
                 }}
-                // title={props.element.speaker.toUpperCase()}
                 title={props.element.speaker}
                 onClick={() => handleClickSpeakerName(props.element)}
               >
@@ -903,7 +901,7 @@ function SlateTranscriptEditor(props) {
                         gutterBottom
                         key={index + speakerName}
                         className={'text-truncate'}
-                        title={speakerName.toUpperCase()}
+                        title={speakerName}
                       >
                         {speakerName}
                       </Typography>
