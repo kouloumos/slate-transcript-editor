@@ -55,7 +55,7 @@ function SideBtns({
   };
 
   return (
-    <Grid container direction="column" justifycontent="flex-start" alignItems="stretch">
+    <Grid container item xs={12} sm={1} md={1} lg={1} xl={1} alignContent="flex-start">
       {buttonConfig.export && (
         <Grid item>
           <Tooltip title={<Typography variant="body1">Export options</Typography>}>
