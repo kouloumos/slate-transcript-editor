@@ -1021,6 +1021,7 @@ SlateTranscriptEditor.defaultProps = {
     textInaudible: true,
     musicNote: true,
     undoRedo: true,
-    replaceText: true
+    replaceText: true,
+    restoreTimecodes: false,
   },
 };

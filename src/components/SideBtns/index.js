@@ -380,36 +380,36 @@ function SideBtns({
               </Tooltip>
             </Grid>
           )}
-          {/* <Tooltip
-        title={
-          ' Restore timecodes. At the moment for transcript over 1hour it could temporarily freeze the UI for a few seconds'
-        }
-      >
-        <Button
-          disabled={isProcessing}
-          onClick={async () => {
-            try {
-              setIsProcessing(true);
-              await handleRestoreTimecodes();
-              if (handleAnalyticsEvents) {
-                // handles if click cancel and doesn't set speaker name
-                handleAnalyticsEvents('ste_handle_restore_timecodes_btn', {
-                  fn: 'handleRestoreTimecodes',
-                });
-              }
-            } finally {
-              setIsProcessing(false);
-            }
-          }}
-          color="primary"
-        >
-          <CachedOutlinedIcon
-            color={'primary'}
-            // color={isContentModified ? 'secondary' : 'primary'}
-          />
-        </Button>
-      </Tooltip> */}
-          {/*  */}
+          {buttonConfig.restoreTimecodes && (
+            <Grid item>
+              <Tooltip
+                title={
+                  ' Restore timecodes. At the moment for transcript over 1hour it could temporarily freeze the UI for a few seconds'
+                }
+              >
+                <Button
+                  disabled={isProcessing}
+                  onClick={async () => {
+                    try {
+                      setIsProcessing(true);
+                      await handleRestoreTimecodes();
+                      if (handleAnalyticsEvents) {
+                        // handles if click cancel and doesn't set speaker name
+                        handleAnalyticsEvents('ste_handle_restore_timecodes_btn', {
+                          fn: 'handleRestoreTimecodes',
+                        });
+                      }
+                    } finally {
+                      setIsProcessing(false);
+                    }
+                  }}
+                  color="primary"
+                >
+                  <CachedOutlinedIcon color={isContentModified ? 'secondary' : 'primary'} />
+                </Button>
+              </Tooltip>
+            </Grid>
+          )}
           {buttonConfig.replaceText && (
             <>
               <Grid item>
