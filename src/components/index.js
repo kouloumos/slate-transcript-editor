@@ -78,6 +78,7 @@ function SlateTranscriptEditor(props) {
   // last save or alignment
   const [isContentModified, setIsContentIsModified] = useState(false);
   const [isContentSaved, setIsContentSaved] = useState(true);
+  const [selectedSpeakerElement, setSelectedSpeakerElement] = useState(null);
 
   useEffect(() => {
     if (isProcessing) {
@@ -286,14 +287,14 @@ function SlateTranscriptEditor(props) {
    * to improve the overall performance of the editor,
    * especially on long transcripts
    * @param {*} element - props.element, from `renderElement` function
+   * @param {string} newSpeakerName - The new name to be set for the speaker
+   * @param {boolean} isUpdateAllSpeakerInstances - Whether to update all occurrences of the speaker name
    */
-  const handleSetSpeakerName = (element) => {
+  const handleSetSpeakerName = (element, newSpeakerName, isUpdateAllSpeakerInstances) => {
     if (props.isEditable) {
       const pathToCurrentNode = ReactEditor.findPath(editor, element);
       const oldSpeakerName = element.speaker;
-      const newSpeakerName = prompt('Change speaker name', oldSpeakerName);
       if (newSpeakerName) {
-        const isUpdateAllSpeakerInstances = confirm(`Would you like to replace all occurrences of ${oldSpeakerName} with ${newSpeakerName}?`);
         if (props.handleAnalyticsEvents) {
           // handles if set speaker name, and whether updates one or multiple
           props.handleAnalyticsEvents('ste_set_speaker_name', {
@@ -327,6 +328,7 @@ function SlateTranscriptEditor(props) {
           });
         }
       }
+      setSelectedSpeakerElement(null)
     }
   };
 
@@ -401,7 +403,7 @@ function SlateTranscriptEditor(props) {
                 }}
                 // title={props.element.speaker.toUpperCase()}
                 title={props.element.speaker}
-                onClick={handleSetSpeakerName.bind(this, props.element)}
+                onClick={() => handleClickSpeakerName(props.element)}
               >
                 {props.element.speaker}
               </Typography>
@@ -701,6 +703,21 @@ function SlateTranscriptEditor(props) {
     }
     // auto align when not typing
   };
+
+  const handleClickSpeakerName = (element) => {
+    if (props.SelectSpeakerModalComponent) {
+      setSelectedSpeakerElement(element);
+    } else {
+      // fallback to default browser modals
+      const oldSpeakerName = element.speaker;
+      const newSpeakerName = prompt('Change speaker name', oldSpeakerName);
+      if (newSpeakerName) {
+        const isUpdateAllSpeakerInstances = confirm(`Would you like to replace all occurrences of ${oldSpeakerName} with ${newSpeakerName}?`);
+        handleSetSpeakerName(element, newSpeakerName, isUpdateAllSpeakerInstances);
+      }
+    }
+
+  };
   return (
     <div style={{ paddingTop: '1em' }}>
       <CssBaseline />
@@ -962,6 +979,15 @@ function SlateTranscriptEditor(props) {
           </Grid>
         </Grid>
       </Container>
+      {props.SelectSpeakerModalComponent && (
+        <props.SelectSpeakerModalComponent
+          selectedSpeakerElement={selectedSpeakerElement}
+          onSetSpeakerName={(newSpeakerName, isUpdateAllSpeakerInstances) =>
+            handleSetSpeakerName(selectedSpeakerElement, newSpeakerName, isUpdateAllSpeakerInstances)
+          }
+          onClose={() => setSelectedSpeakerElement(null)}
+        />
+      )}
     </div>
   );
 }
@@ -981,6 +1007,7 @@ SlateTranscriptEditor.propTypes = {
   showTitle: PropTypes.bool,
   transcriptDataLive: PropTypes.object,
   buttonConfig: PropTypes.object,
+  SelectSpeakerModalComponent: PropTypes.elementType
 };
 
 SlateTranscriptEditor.defaultProps = {
