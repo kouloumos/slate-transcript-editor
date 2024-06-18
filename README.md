@@ -1,9 +1,8 @@
-# Slate transcript editor
+# Slate Transcript Editor
 
-<!-- _One liner + link to confluence page_
-_Screenshot of UI - optional_ -->
+This project is based on the work from [`@pietrop/slate-transcript-editor`](https://github.com/pietrop/slate-transcript-editor). We forked this repository to continue its development and improve upon it.
 
-_Work in progress_
+## Overview
 
 Building on the success and lessons learned from [`@bbc/react-transcript-editor`](https://github.com/bbc/react-transcript-editor).
 Mostly to be used in the context of [autoEdit 3](http://autoedit.io)(digital paper edit), and other proejcts.
